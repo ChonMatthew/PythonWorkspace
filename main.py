@@ -1,6 +1,7 @@
 # Global Variable
 MAX_LINES = 3
-
+MAX_BET = 500
+MIN_BET = 10
 
 # Get user input
 def deposit():
@@ -39,10 +40,24 @@ def get_number_of_lines():
     
     return lines
 
+def get_bet():
+    while True:
+        bet_amount = input(f"How much would you like to bet? From RM{MIN_BET}-{MAX_BET}: RM")
+        if bet_amount.isdigit():
+            bet_amount = int(bet_amount)
+            if bet_amount >= MIN_BET and bet_amount <= MAX_BET:
+                break
+            else:
+                print("Please enter a valid amount to bet.")
+        else:
+            print("Please enter a number!")
+    return bet_amount
+
 # Place the running functions inside main() for easier calling/access
 def main():
     balance = deposit()
     lines = get_number_of_lines()
-    print(balance, lines)
+    bet = get_bet()
+    print(balance, lines, bet)
 
 main()
