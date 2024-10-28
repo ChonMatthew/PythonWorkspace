@@ -171,6 +171,8 @@ def main():
         if spin.upper() == "Q":
             break
         balance += game(balance)
+    
+    print(f"You left with RM{balance}")
 
 
 main()
