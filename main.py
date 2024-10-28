@@ -18,6 +18,15 @@ symbol_count = {
     "D": 8
 }
 
+symbol_value = {
+    "A": 8,
+    "B": 6,
+    "C": 4,
+    "D": 2
+}
+
+
+
 # Slot machine mechanics
 def get_machine_spin(rows, cols, symbols):
     all_symbols = []
@@ -34,7 +43,7 @@ def get_machine_spin(rows, cols, symbols):
         column = []
         current_symbols = all_symbols[:] # Slicing the all_symbols so that current_symbols does not act as just a reference
         for _ in range(rows):
-            value = random.choices(current_symbols)
+            value = random.choice(current_symbols)
             # Remove from current list
             current_symbols.remove(value)
             # Add to the column
@@ -42,7 +51,21 @@ def get_machine_spin(rows, cols, symbols):
 
         columns.append(column)
 
+    return columns
 
+
+# Printing the generated slot machine
+def print_slot_machine(columns):
+    # Transposing the matrix so that it is in the right position
+    for row in range(len(columns[0])): # At least 1 column
+        for i, column in enumerate(columns): # Enumerate will give the index and item
+            # Formatting the slot machine display
+            if i != len(columns) - 1:
+                print(column[row], end=" | ")
+            else:
+                print(column[row], end = "")
+
+        print()
 
 # Get user input
 def deposit():
@@ -65,6 +88,7 @@ def deposit():
             print("Please enter a number!")
 
     return amount
+
 
 # For the number of lines the user is betting on
 def get_number_of_lines():
@@ -96,6 +120,7 @@ def get_bet():
 
     return bet_amount
 
+
 # Place the running functions inside main() for easier calling/access
 def main():
     balance = deposit()
@@ -113,6 +138,9 @@ def main():
     print(f"Your Current Bet: RM{bet}")
     print(f"Number of Lines: {lines}")
     print(f"You are betting RM{bet} on {lines} line(s). The total bet is RM{total_bet}")
-    machine = get_machine_spin(ROWS, COLS, symbol_count)
+
+    slots = get_machine_spin(ROWS, COLS, symbol_count)
+    print_slot_machine(slots)
+
 
 main()
