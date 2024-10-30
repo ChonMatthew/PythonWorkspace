@@ -12,9 +12,9 @@ COLS = 3
 
 # A dictionary to identify the symbols in the slot machine
 symbol_count = {
-    "A": 2,
-    "B": 4,
-    "C": 6,
+    "A": 4,
+    "B": 8,
+    "C": 8,
     "D": 8
 }
 
@@ -135,6 +135,38 @@ def get_bet():
 
     return bet_amount
 
+def display_rules():
+    print(
+        """
+        ------------------------------------------
+        Rules:
+        This Game will ask you to deposit a certain amount of money! Using this money, you will bet on up to 3 lines
+        
+        How To Win:
+        Betting on 1 line: The top row
+        Betting on 2 lines: The top and middle row
+        Betting on 3 lines: All rows!
+        
+        If the rows display the same symbols, you have successfully won the bet on that row!
+        ------------------------------------------
+        """)
+
+    back_option = input("Press Any Key to RETURN")
+
+
+def display():
+    print(
+        """
+        ------------------------------------------\n
+        Welcome to Sean's Simple Slot Machine Game
+
+        """
+        )
+    print("Press 'P' to Play, 'I' for Instructions, or 'Q' to Quit")
+    option = input()
+
+    return option
+
 # Game logic
 def game(balance):
     lines = get_number_of_lines()
@@ -164,15 +196,25 @@ def game(balance):
 
 # Place the running functions inside main() for easier calling/access
 def main():
-    balance = deposit()
-    while True:
-        print(f"Current Balance: RM{balance}")
-        spin = input("Press Enter to PLAY (Q to quit).")
-        if spin.upper() == "Q":
-            break
-        balance += game(balance)
-    
-    print(f"You left with RM{balance}")
+    option = display()
+    match option.upper():
+        case "P":
+            balance = deposit()
+            while True:
+                print(f"Current Balance: RM{balance}")
+                spin = input("Press Enter to PLAY (Q to quit).")
+                if spin.upper() == "Q":
+                    break
+                balance += game(balance)
+            
+            print(f"You left with RM{balance}")
+        
+        case "I":
+            display_rules()
+
+        case "Q":
+            print("Thank you for playing!")
+            SystemExit(0)
 
 
 main()
